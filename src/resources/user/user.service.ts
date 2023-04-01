@@ -8,7 +8,7 @@ import { User, UserDocument } from './schemas/user.schema';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
 
   create(createUserDto: CreateUserDto) {
     let { password } = createUserDto;
@@ -20,8 +20,7 @@ export class UserService {
 
   findAll() {
     return this.userModel
-      .find({}, { role: 1, email: 1, registers: 1, active: 1 })
-      .populate('registers', { user_id: 0 })
+      .find({}, { role: 1, email: 1, active: 1 })
       .exec();
   }
 
@@ -31,8 +30,7 @@ export class UserService {
 
   findOneUser(id: string) {
     return this.userModel
-      .findById(id, { role: 1, email: 1, registers: 1, active: 1, name: 1 })
-      .populate('registers')
+      .findById(id, { role: 1, email: 1, active: 1, name: 1, username: 1 })
       .exec();
   }
 

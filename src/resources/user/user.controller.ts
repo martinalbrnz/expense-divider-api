@@ -1,4 +1,3 @@
-import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import {
   Body,
   Controller,
@@ -7,16 +6,16 @@ import {
   Param,
   Patch,
   Post,
-  // eslint-disable-next-line prettier/prettier
   UseGuards
 } from '@nestjs/common';
+import { JwtAuthGuard } from '../../guards/jwt-auth/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Post('register')
   create(@Body() createUserDto: CreateUserDto) {
