@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { compareSync } from 'bcryptjs';
-import { UserService } from '../resources/user/user.service';
+import { Injectable } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
+import { compareSync } from 'bcryptjs'
+import { UserService } from '../resources/user/user.service'
 
 @Injectable()
 export class AuthService {
@@ -11,12 +11,12 @@ export class AuthService {
 	) { }
 
 	async validateUser(username: string, pass: string): Promise<any> {
-		const user = await this.usersService.findOne(username);
+		const user = await this.usersService.findOne(username)
 		if (user && compareSync(pass, user.password)) {
-			const { ...result } = user;
-			return result;
+			const { ...result } = user
+			return result
 		}
-		return null;
+		return null
 	}
 
 	async login(user: any) {
@@ -25,12 +25,12 @@ export class AuthService {
 			role: user._doc.role,
 			name: user._doc.name,
 			_id: user._doc._id,
-		};
+		}
 		return {
 			access_token: this.jwtService.sign(payload),
 			role: user._doc.role,
 			name: user._doc.name,
 			id: user._doc._id,
-		};
+		}
 	}
 }
